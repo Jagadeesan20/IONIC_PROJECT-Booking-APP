@@ -19,6 +19,7 @@ export class DiscoverPage implements OnInit {
 
   ngOnInit() {
     this.loadedPlaces = this.placesService.places;
+
     this.listedLoadedPlaces = this.loadedPlaces.slice(1);
   }
   onOpenMenu() {

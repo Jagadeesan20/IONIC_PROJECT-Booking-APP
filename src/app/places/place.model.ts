@@ -6,6 +6,8 @@ export class Place {
     public imageUrl: string,
     public price: string,
     public availableFrom: string,
-    public availableTo: string
+    public availableTo: string,
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    public UserId: string
   ) {}
 }

@@ -1,7 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IonDatetime, PopoverController } from '@ionic/angular';
 import { format, parseISO } from 'date-fns';
+import { PlacesService } from '../../places.service';
 
 @Component({
   selector: 'app-new-offer',
@@ -15,7 +17,11 @@ export class NewOfferPage implements OnInit {
   dateValue2 = '';
   form: FormGroup;
 
-  constructor(private poperoverCtrl: PopoverController) {}
+  constructor(
+    private poperoverCtrl: PopoverController,
+    private placeservice: PlacesService,
+    private router: Router
+  ) {}
   ngOnInit() {
     this.form = new FormGroup({
       title: new FormControl(null, {
@@ -55,6 +61,14 @@ export class NewOfferPage implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    console.log(this.form);
+    this.placeservice.addPlace(
+      this.form.value.title,
+      this.form.value.description,
+      this.form.value.price,
+      this.form.value.dateFrom,
+      this.form.value.dateTo
+    );
+    this.form.reset();
+    this.router.navigate(['/places/tabs/offers']);
   }
 }
