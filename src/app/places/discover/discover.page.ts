@@ -13,6 +13,7 @@ import { PlacesService } from '../places.service';
 })
 export class DiscoverPage implements OnInit, OnDestroy {
   loadedPlaces: Place[];
+  isLoading = false;
   listedLoadedPlaces: Place[];
   releventPlaces: Place[];
   private placesSub: Subscription;
@@ -27,6 +28,13 @@ export class DiscoverPage implements OnInit, OnDestroy {
       this.loadedPlaces = places;
       this.releventPlaces = this.loadedPlaces;
       this.listedLoadedPlaces = this.releventPlaces.slice(1);
+    });
+  }
+
+  ionViewWillEnter() {
+    this.isLoading = true;
+    this.placesService.fetchPlaces().subscribe(() => {
+      this.isLoading = false;
     });
   }
   onOpenMenu() {
